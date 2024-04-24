@@ -1,0 +1,7 @@
+exporter_port: 9787
+log_level: INFO
+devices:
+  - name: Fritz!Box 6591 Cable
+    hostname: fritz.box
+    username: prometheus
+    password: prometheus

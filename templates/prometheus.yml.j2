@@ -15,12 +15,14 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
+{#
   - job_name: 'speedtest'
     metrics_path: /metrics
     scrape_interval: {{ monitoring_speedtest_interval }}
     scrape_timeout: 60s  # running speedtest needs time to complete
     static_configs:
       - targets: ['speedtest:9798']
+#}
 
 {% if shelly_plug_enable %}
   - job_name: 'shelly-plug'

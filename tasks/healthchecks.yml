@@ -1,0 +1,13 @@
+---
+- name: Ensure dependencies are installed.
+  ansible.builtin.apt:
+    name:
+      - curl
+    state: present
+
+- name: Ensure cronjob exists.
+  cron:
+    name: "Send healthcheks ping"
+    job: "curl -fsS -m 10 --retry 5 -o /dev/null {{ item }}"
+    state: present
+  loop: "{{ healthcheck_monitors }}"

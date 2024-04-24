@@ -24,9 +24,11 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9090:9090
+    dns:
+      - 1.1.1.1
     links:
       - ping:ping
-      - speedtest:speedtest
+      # - speedtest:speedtest
     networks:
       - back-tier
 
@@ -40,6 +42,8 @@ services:
       - prometheus
     ports:
       - 3030:3000
+    dns:
+      - 1.1.1.1
     env_file:
       - ./grafana/config.monitoring
     networks:
@@ -53,6 +57,8 @@ services:
       - 9115
     ports:
       - 9115:9115
+    dns:
+      - 1.1.1.1
     image: prom/blackbox-exporter
     restart: always
     volumes:
@@ -62,15 +68,15 @@ services:
     networks:
       - back-tier
 
-  speedtest:
-    expose:
-      - 9798
-    ports:
-      - 9798:9798
-    image: miguelndecarvalho/speedtest-exporter
-    restart: always
-    networks:
-      - back-tier
+  # speedtest:
+  #   expose:
+  #     - 9798
+  #   ports:
+  #     - 9798:9798
+  #   image: miguelndecarvalho/speedtest-exporter
+  #   restart: always
+  #   networks:
+  #     - back-tier
 
   nodeexp:
     privileged: true
@@ -81,6 +87,8 @@ services:
       - /:/rootfs:ro
     ports:
       - 9100:9100
+    dns:
+      - 1.1.1.1
     restart: always
     command:
       - '--path.procfs=/host/proc'
